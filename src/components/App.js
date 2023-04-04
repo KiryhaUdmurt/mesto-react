@@ -66,8 +66,8 @@ function App() {
           placeholder="Имя"
           required
           name="name"
-          minlength="2"
-          maxlength="40"
+          minLength="2"
+          maxLength="40"
         />
         <span className="popup__error-message profile-name-error"></span>
         <input
@@ -77,8 +77,8 @@ function App() {
           placeholder="О себе"
           required
           name="job"
-          minlength="2"
-          maxlength="200"
+          minLength="2"
+          maxLength="200"
         />
         <span className="popup__error-message profile-job-error"></span>
       </PopupWithForm>
@@ -96,8 +96,8 @@ function App() {
           placeholder="Название"
           required
           name="name"
-          minlength="2"
-          maxlength="30"
+          minLength="2"
+          maxLength="30"
         />
         <span className="popup__error-message card-name-error"></span>
         <input
