@@ -1,6 +1,5 @@
 import React from "react";
 import defaultAvatar from "../images/profile-img.jpg";
-import App from "./App";
 import { api } from "../utils/Api";
 import Card from "./Card";
 
@@ -68,7 +67,14 @@ export default function Main(props) {
       </section>
       <section className="elements">
         <ul className="elements__list">
-          {cards.map(card => <Card key={card._id} card={card} onCardClick={props.onCardClick} />)}
+          {cards.map((card) => (
+            <Card
+              key={card._id}
+              card={card}
+              onCardClick={props.onCardClick}
+              onDeleteCard={props.onDeleteCard}
+            />
+          ))}
         </ul>
       </section>
     </main>
