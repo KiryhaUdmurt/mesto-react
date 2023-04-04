@@ -12,28 +12,45 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isDeletePopupOpen, setIsDeletePopupOpen] = React.useState(false);
 
+  const [selectedCard, setSelectedCard] = React.useState(false);
+
+  
+  function closeAllPopups() {
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsDeletePopupOpen(false);
+    setSelectedCard(false);
+  }
+
+  function handleCardClick(card) {
+    setSelectedCard(card);
+  }
+  
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
-    // document.querySelector('.popup_type_avatar').classList.add('popup_opened');
   }
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
-    // document.querySelector('.popup_type_profile').classList.add('popup_opened');
   }
 
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
-    // document.querySelector('.popup_type_card').classList.add('popup_opened');
+  }
+
+  function handleDeleteCardClick() {
+    setIsDeletePopupOpen(true);
   }
 
   return (
     <div className="page">
       <Header />
-      <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} />
+      <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onDeleteCard={handleDeleteCardClick} onCardClick={handleCardClick} />
       <Footer />
-      <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen}>
+      <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
         <input
           className="popup__input popup__input_type_name"
           id="profile-name"
@@ -57,7 +74,7 @@ function App() {
         />
         <span className="popup__error-message profile-job-error"></span>
       </PopupWithForm>
-      <PopupWithForm name="card" title="Новое место" isOpen={isAddPlacePopupOpen}>
+      <PopupWithForm name="card" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
         <input
           className="popup__input popup__input_type_name"
           id="card-name"
@@ -79,8 +96,8 @@ function App() {
         />
         <span className="popup__error-message card-url-error"></span>
       </PopupWithForm>
-      <PopupWithForm name="delete" title="Вы уверены?" />
-      <PopupWithForm name='avatar' title='Обновить аватар' isOpen={isEditAvatarPopupOpen}>
+      <PopupWithForm name="delete" title="Вы уверены?" isOpen={isDeletePopupOpen} onClose={closeAllPopups} />
+      <PopupWithForm name='avatar' title='Обновить аватар' isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
         <input
           className="popup__input popup__input_type_avatar-url"
           id="avatar-url"
@@ -91,26 +108,7 @@ function App() {
         />
         <span className="popup__error-message avatar-url-error"></span>
       </PopupWithForm>
-      <ImagePopup />
-      <template className="card-template">
-        <li className="elements__item card">
-          <img src="#" alt="#" className="card__img" />
-          <button
-            className="card__delete-btn"
-            type="button"
-            aria-label="Удаление карточки"
-          ></button>
-          <div className="card__img-bar">
-            <h2 className="card__name"></h2>
-            <button
-              className="card__like-button"
-              type="button"
-              aria-label="Нравится"
-            ></button>
-            <span className="card__like-number">0</span>
-          </div>
-        </li>
-      </template>
+      <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
     </div>
   );
 }

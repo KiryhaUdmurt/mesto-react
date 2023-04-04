@@ -1,4 +1,3 @@
-import { Children } from "react";
 
 export default function PopupWithForm(props) {
   return (
@@ -15,6 +14,7 @@ export default function PopupWithForm(props) {
             className="popup__close-btn"
             type="button"
             aria-label="Закрыть"
+            onClick={props.onClose}
           ></button>
         </div>
       </div>
