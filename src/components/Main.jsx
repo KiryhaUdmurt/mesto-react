@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import defaultAvatar from "../images/profile-img.jpg";
 import { api } from "../utils/Api";
 import Card from "./Card";
 
 export default function Main(props) {
-  const [userName, setUserName] = React.useState("Жак-Ив Кусто");
-  const [userDescription, setUserDescription] = React.useState("Исследователь");
-  const [userAvatar, setUserAvatar] = React.useState(defaultAvatar);
+  const [userName, setUserName] = useState("Жак-Ив Кусто");
+  const [userDescription, setUserDescription] = useState("Исследователь");
+  const [userAvatar, setUserAvatar] = useState(defaultAvatar);
 
-  const [cards, setCards] = React.useState([]);
+  const [cards, setCards] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     api
       .getUserInformation()
       .then((info) => {
