@@ -1,36 +1,25 @@
-import React, { useState, useEffect } from "react";
-import defaultAvatar from "../images/profile-img.jpg";
+import React, { useState, useEffect, useContext } from "react";
 import { api } from "../utils/Api";
 import Card from "./Card";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 export default function Main(props) {
-  const [userName, setUserName] = useState("Жак-Ив Кусто");
-  const [userDescription, setUserDescription] = useState("Исследователь");
-  const [userAvatar, setUserAvatar] = useState(defaultAvatar);
 
-  const [cards, setCards] = useState([]);
+  // const [cards, setCards] = useState([]);
 
-  useEffect(() => {
-    api
-      .getUserInformation()
-      .then((info) => {
-        setUserName(info.name);
-        setUserDescription(info.about);
-        setUserAvatar(info.avatar);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const currentUser = useContext(CurrentUserContext);
 
-    api
-      .getInitialCards()
-      .then((cards) => {
-        setCards(cards);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   api
+  //     .getInitialCards()
+  //     .then((cards) => {
+  //       setCards(cards);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
+  
 
   return (
     <main className="content">
@@ -43,19 +32,19 @@ export default function Main(props) {
             ></button>
             <img
               className="profile__img"
-              src={userAvatar}
+              src={currentUser.avatar}
               alt="Аватар профиля"
             />
           </div>
           <div className="profile__info">
-            <h1 className="profile__name">{userName}</h1>
+            <h1 className="profile__name">{currentUser.name}</h1>
             <button
               className="profile__edit-button"
               type="button"
               aria-label="Редактирование профиля"
               onClick={props.onEditProfile}
             ></button>
-            <p className="profile__status">{userDescription}</p>
+            <p className="profile__status">{currentUser.about}</p>
           </div>
         </div>
         <button
@@ -67,12 +56,14 @@ export default function Main(props) {
       </section>
       <section className="elements">
         <ul className="elements__list">
-          {cards.map((card) => (
+          {props.cards.map((card) => (
             <Card
               key={card._id}
               card={card}
               onCardClick={props.onCardClick}
-              onDeleteCard={props.onDeleteCard}
+              // onDeleteCard={props.onDeleteCard}
+              onCardLike={props.onCardLike}
+              onCardDelete={props.onCardDelete}
             />
           ))}
         </ul>
