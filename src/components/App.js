@@ -9,12 +9,13 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import DeleteCardPopup from "./DeleteCardPopup";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  // const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
+  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
 
   const [selectedCard, setSelectedCard] = useState(null);
 
@@ -166,13 +167,14 @@ function App() {
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}
         />
-        <PopupWithForm
+        <DeleteCardPopup isOpen={isDeletePopupOpen} onClose={closeAllPopups} />
+        {/* <PopupWithForm
           name="delete"
           title="Вы уверены?"
           // isOpen={isDeletePopupOpen}
           onClose={closeAllPopups}
           buttonText="Да"
-        />
+        /> */}
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}

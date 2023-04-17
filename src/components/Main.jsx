@@ -1,25 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
-import { api } from "../utils/Api";
+import React, { useContext } from "react";
 import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 export default function Main(props) {
 
-  // const [cards, setCards] = useState([]);
-
   const currentUser = useContext(CurrentUserContext);
-
-  // useEffect(() => {
-  //   api
-  //     .getInitialCards()
-  //     .then((cards) => {
-  //       setCards(cards);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
-  
 
   return (
     <main className="content">
