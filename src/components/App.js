@@ -15,7 +15,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
+  // const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
 
   const [selectedCard, setSelectedCard] = useState(null);
 
@@ -40,6 +40,27 @@ function App() {
     // setIsDeletePopupOpen(false);
     setSelectedCard(null);
   }
+
+  function closeEsc(e) {
+    if (e.key === "Escape") {
+      closeAllPopups();
+    }
+  }
+
+  function closeOverlay(e) {
+    if (e.target.classList.contains("popup")) {
+      closeAllPopups();
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', closeEsc);
+    document.addEventListener('click', closeOverlay);
+    return () => {
+      document.removeEventListener('keydown', closeEsc);
+      document.removeEventListener('click', closeOverlay);
+    }
+  })
 
   function handleCardClick(card) {
     setSelectedCard(card);
@@ -94,17 +115,19 @@ function App() {
 
   // УДАЛЕНИЕ КАРТОЧКИ
   function handleDeleteCard(card) {
-    console.log(card);
     const isOwnCard = card.owner._id === currentUser._id;
 
     if (isOwnCard) {
-      api.deleteCard(card._id).then(() => {
-        setCards((state) =>
-          state.filter((c) => {
-            return c._id !== card._id;
-          })
-        );
-      });
+      api
+        .deleteCard(card._id)
+        .then(() => {
+          setCards((state) =>
+            state.filter((c) => {
+              return c._id !== card._id;
+            })
+          );
+        })
+        .catch((err) => console.log(err));
     }
   }
 
@@ -167,7 +190,7 @@ function App() {
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}
         />
-        <DeleteCardPopup isOpen={isDeletePopupOpen} onClose={closeAllPopups} />
+        {/* <DeleteCardPopup isOpen={isDeletePopupOpen} onClose={closeAllPopups} /> */}
         {/* <PopupWithForm
           name="delete"
           title="Вы уверены?"

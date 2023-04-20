@@ -12,6 +12,8 @@ export default function AddPlacePopup(props) {
       name: cardNameRef.current.value,
       link: cardLinkRef.current.value,
     });
+
+    e.target.reset();
   }
   return (
     <PopupWithForm
