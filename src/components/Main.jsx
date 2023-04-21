@@ -3,7 +3,6 @@ import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 export default function Main(props) {
-
   const currentUser = useContext(CurrentUserContext);
 
   return (
@@ -46,7 +45,6 @@ export default function Main(props) {
               key={card._id}
               card={card}
               onCardClick={props.onCardClick}
-              // onDeleteCard={props.onDeleteCard}
               onCardLike={props.onCardLike}
               onCardDelete={props.onCardDelete}
             />
