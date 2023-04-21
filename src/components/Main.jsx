@@ -41,13 +41,14 @@ export default function Main(props) {
       <section className="elements">
         <ul className="elements__list">
           {props.cards.map((card) => (
-            <Card
-              key={card._id}
-              card={card}
-              onCardClick={props.onCardClick}
-              onCardLike={props.onCardLike}
-              onCardDelete={props.onCardDelete}
-            />
+            <li className="elements__item card" key={card._id}>
+              <Card
+                card={card}
+                onCardClick={props.onCardClick}
+                onCardLike={props.onCardLike}
+                onCardDelete={props.onCardDelete}
+              />
+            </li>
           ))}
         </ul>
       </section>
