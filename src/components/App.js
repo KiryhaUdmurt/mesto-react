@@ -158,7 +158,7 @@ function App() {
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
         />
-        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+        <ImagePopup card={selectedCard} onClose={closeAllPopups} isOpen={selectedCard} />
       </div>
     </CurrentUserContext.Provider>
   );

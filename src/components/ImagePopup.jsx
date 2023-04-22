@@ -1,9 +1,28 @@
-export default function ImagePopup({ card, onClose }) {
+import React, { useEffect } from "react";
+
+export default function ImagePopup({ card, onClose, isOpen }) {
   function closeOverlay(e) {
     if (e.target === e.currentTarget) {
       onClose();
     }
   }
+
+  function closeEsc(e) {
+    if (e.key === "Escape") {
+      onClose();
+    }
+  }
+
+  useEffect(() => {
+    if (isOpen) {
+      console.log("mounted");
+      document.addEventListener("keydown", closeEsc);
+    return () => {
+      console.log("unmounted");
+      document.removeEventListener("keydown", closeEsc);
+    };
+  }
+  }, [isOpen]);
 
   return (
     <div

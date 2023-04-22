@@ -8,11 +8,15 @@ export default function PopupWithForm(props) {
   }
 
   useEffect(() => {
-    document.addEventListener("keydown", closeEsc);
+    if (props.isOpen) {
+      console.log("mounted");
+      document.addEventListener("keydown", closeEsc);
     return () => {
+      console.log("unmounted");
       document.removeEventListener("keydown", closeEsc);
     };
-  }, []);
+  }
+  }, [props.isOpen]);
 
   function closeOverlay(e) {
     if (e.target === e.currentTarget) {
